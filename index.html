@@ -18,7 +18,7 @@
     <div class="brand">
         <button class="brand-back" id="backBtn" onclick="goBack()">‹ Atrás</button>
         <div class="brand-mark">Félix Chaja</div>
-        <span style="width:48px"></span>
+        <span class="brand-spacer" aria-hidden="true"></span>
     </div>
 
     <!-- Progress -->
@@ -57,33 +57,108 @@
         <h2>¿Cómo quieres sentirte?</h2>
         <p class="lead">Elige la sensación que quieres proyectar al usar tu perfume.</p>
         <div class="options">
-            <div class="option" onclick="select(this,'emocion')">Elegante</div>
-            <div class="option" onclick="select(this,'emocion')">Fresco</div>
-            <div class="option" onclick="select(this,'emocion')">Seguro</div>
+            <div class="option" onclick="select(this,'emocion')"
+                 data-desc="Una presencia sofisticada y refinada. Para momentos donde quieres dejar huella sin alzar la voz.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M6 3l4 6h4l4-6"/><path d="M2 9h20"/></svg>
+                </div>
+                <div class="option-label">Elegante</div>
+            </div>
+            <div class="option" onclick="select(this,'emocion')"
+                 data-desc="Energía limpia y luminosa. Ideal para el día a día y climas cálidos.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg>
+                </div>
+                <div class="option-label">Fresco</div>
+            </div>
+            <div class="option" onclick="select(this,'emocion')"
+                 data-desc="Carácter firme y reconocible. Una fragancia que te respalda en cada decisión.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div class="option-label">Seguro</div>
+            </div>
         </div>
+        <div class="option-desc" id="desc-emocion"></div>
         <button class="primary" onclick="next('familia','emocion')">Siguiente</button>
     </div>
 
     <!-- FAMILIA -->
     <div id="familia" class="screen">
         <div class="eyebrow">Paso 3 · Familia olfativa</div>
-        <h2>Tu familia</h2>
+        <h2>Selecciona tu base</h2>
         <p class="lead">El núcleo aromático sobre el que se construye tu fragancia.</p>
         <div class="options">
-            <div class="option" onclick="select(this,'familia')">Cítrico</div>
-            <div class="option" onclick="select(this,'familia')">Floral</div>
-            <div class="option" onclick="select(this,'familia')">Amaderado</div>
+            <div class="option" onclick="select(this,'familia')"
+                 data-desc="Aromas jóvenes, alegres y frescos. Composiciones basadas en frutas como naranja, limón, mandarina, toronja y bergamota.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><ellipse cx="12" cy="13" rx="7" ry="8" transform="rotate(-25 12 13)"/><path d="M16 5l2-2"/><path d="M18 3l1.5 1.5"/></svg>
+                </div>
+                <div class="option-label">Cítrico</div>
+            </div>
+            <div class="option" onclick="select(this,'familia')"
+                 data-desc="El corazón clásico de la perfumería. Notas de rosa, jazmín, peonía o azahar para una sensación romántica y delicada.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.2"/><path d="M12 4c2 1.5 2 5 0 7M12 20c-2-1.5-2-5 0-7M4 12c1.5-2 5-2 7 0M20 12c-1.5 2-5 2-7 0"/></svg>
+                </div>
+                <div class="option-label">Floral</div>
+            </div>
+            <div class="option" onclick="select(this,'familia')"
+                 data-desc="Notas profundas y cálidas: cedro, sándalo, vetiver. Aporta seriedad, elegancia y gran fijación.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2L4 14h5v8h6v-8h5L12 2z"/></svg>
+                </div>
+                <div class="option-label">Amaderado</div>
+            </div>
         </div>
-        <button class="primary" onclick="next('inspiracion','familia')">Siguiente</button>
+        <div class="option-desc" id="desc-familia"></div>
+        <button class="primary" onclick="next('personalidad','familia')">Siguiente</button>
     </div>
 
-    <!-- INSPIRACION -->
-    <div id="inspiracion" class="screen">
-        <div class="eyebrow">Paso 4 · Inspiración</div>
-        <h2>¿Qué te inspira?</h2>
-        <p class="lead">Una referencia, un recuerdo, un lugar… opcional pero ayuda mucho.</p>
-        <input id="inspiracionInput" placeholder="Ej: elegante tipo hotel">
-        <button class="primary" onclick="show('acordes')">Siguiente</button>
+    <!-- PERSONALIDAD -->
+    <div id="personalidad" class="screen">
+        <div class="eyebrow">Paso 4 · Personalidad</div>
+        <h2>Selecciona tu personalidad</h2>
+        <p class="lead">Elige la actitud que mejor describe tu estilo de vida.</p>
+        <div class="options options-5">
+            <div class="option" onclick="select(this,'personalidad')"
+                 data-desc="Activo, en movimiento, siempre listo para una nueva aventura. Fragancias enérgicas y deportivas.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2c3 3 5 7 5 11v3l-5 4-5-4v-3c0-4 2-8 5-11z"/><path d="M9 16l-3 5 4-1M15 16l3 5-4-1"/><circle cx="12" cy="10" r="1.5"/></svg>
+                </div>
+                <div class="option-label">Dinámico</div>
+            </div>
+            <div class="option" onclick="select(this,'personalidad')"
+                 data-desc="Sociable y cálido, alma de las reuniones. Aromas envolventes que conectan rápidamente con quienes te rodean.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="0.8" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="0.8" fill="currentColor" stroke="none"/><path d="M8 14c1 1.5 2.5 2.5 4 2.5s3-1 4-2.5"/></svg>
+                </div>
+                <div class="option-label">Carismático</div>
+            </div>
+            <div class="option" onclick="select(this,'personalidad')"
+                 data-desc="Te gusta destacar y marcar diferencia. Composiciones únicas, audaces y memorables.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M12 8c-1-1.5-3-1-3 1 0 1.5 3 3 3 3s3-1.5 3-3c0-2-2-2.5-3-1z"/><path d="M9 16h6M9 18h4"/></svg>
+                </div>
+                <div class="option-label">Extravagante</div>
+            </div>
+            <div class="option" onclick="select(this,'personalidad')"
+                 data-desc="Natural, relajado, sin pretensiones. Fragancias limpias y versátiles para el día a día.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><path d="M9 4l-5 3 2 4 2-1v10h8V10l2 1 2-4-5-3-3 2-3-2z"/></svg>
+                </div>
+                <div class="option-label">Casual</div>
+            </div>
+            <div class="option" onclick="select(this,'personalidad')"
+                 data-desc="Carácter clásico y firme. Notas robustas con personalidad definida.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><path d="M9 3h6l1 3-3 2 2 9-3 4-3-4 2-9-3-2z"/></svg>
+                </div>
+                <div class="option-label">Masculino</div>
+            </div>
+        </div>
+        <div class="option-desc" id="desc-personalidad"></div>
+        <button class="primary" onclick="next('acordes','personalidad')">Siguiente</button>
     </div>
 
     <!-- ACORDES -->
@@ -92,10 +167,29 @@
         <h2>Acordes principales</h2>
         <p class="lead">El alma de tu perfume. Elige el matiz que más te llame.</p>
         <div class="options">
-            <div class="option" onclick="select(this,'acordes')">Vetiver</div>
-            <div class="option" onclick="select(this,'acordes')">Ámbar</div>
-            <div class="option" onclick="select(this,'acordes')">Cuero</div>
+            <div class="option" onclick="select(this,'acordes')"
+                 data-desc="Raíz aromática verde y terrosa. Aporta carácter, frescura seca y mucha duración.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><path d="M6 22V8M6 8c0-3 2-6 6-6M12 22V6M12 6c0-2 2-4 6-4M18 22V10"/></svg>
+                </div>
+                <div class="option-label">Vetiver</div>
+            </div>
+            <div class="option" onclick="select(this,'acordes')"
+                 data-desc="Acorde cálido, dulzón y resinoso. Muy sensual, ideal para tardes y noches.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2c0 0-7 8-7 13a7 7 0 0 0 14 0c0-5-7-13-7-13z"/></svg>
+                </div>
+                <div class="option-label">Ámbar</div>
+            </div>
+            <div class="option" onclick="select(this,'acordes')"
+                 data-desc="Nota robusta y profunda. Da carácter y un toque atrevido, ideal para personalidades fuertes.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><path d="M4 8L12 4l8 4v8l-8 4-8-4z"/><path d="M4 8l8 4 8-4M12 12v8"/></svg>
+                </div>
+                <div class="option-label">Cuero</div>
+            </div>
         </div>
+        <div class="option-desc" id="desc-acordes"></div>
         <button class="primary" onclick="next('intensidad','acordes')">Siguiente</button>
     </div>
 
@@ -105,10 +199,29 @@
         <h2>Intensidad</h2>
         <p class="lead">¿Qué tan presente quieres que sea tu fragancia?</p>
         <div class="options">
-            <div class="option" onclick="select(this,'intensidad')">Suave</div>
-            <div class="option" onclick="select(this,'intensidad')">Equilibrado</div>
-            <div class="option" onclick="select(this,'intensidad')">Intenso</div>
+            <div class="option" onclick="select(this,'intensidad')"
+                 data-desc="Eau de Toilette. Discreta y cercana, ideal para uso diario o ambientes formales.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><path d="M18 18a4 4 0 0 0 0-8 6 6 0 0 0-12 0 4 4 0 0 0 0 8h12z"/></svg>
+                </div>
+                <div class="option-label">Suave</div>
+            </div>
+            <div class="option" onclick="select(this,'intensidad')"
+                 data-desc="Eau de Parfum. Presencia notable sin saturar. La intensidad más versátil.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14"/><path d="M5 7l-3 7a3 3 0 0 0 6 0L5 7z"/><path d="M19 7l-3 7a3 3 0 0 0 6 0l-3-7z"/></svg>
+                </div>
+                <div class="option-label">Equilibrado</div>
+            </div>
+            <div class="option" onclick="select(this,'intensidad')"
+                 data-desc="Parfum / Extrait. Larga duración y proyección importante. Para ocasiones especiales.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 22a8 8 0 0 0 8-8c0-4-3-6-4-9-1 2-2 3-2 5-2-1-3-3-3-5-2 2-3 5-3 9a8 8 0 0 0 4 8z"/></svg>
+                </div>
+                <div class="option-label">Intenso</div>
+            </div>
         </div>
+        <div class="option-desc" id="desc-intensidad"></div>
         <button class="primary" onclick="crearPerfume()">Crear perfume</button>
     </div>
 

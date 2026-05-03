@@ -8,7 +8,7 @@ const SHEETS_ENDPOINT = ""; // Ej: "https://script.google.com/macros/s/AKfycbx..
 const WHATSAPP_NUMERO = "524612723409";
 
 let data = {};
-const flow = ['inicio','identidad','emocion','familia','inspiracion','acordes','intensidad','resultado'];
+const flow = ['inicio','identidad','emocion','familia','personalidad','acordes','intensidad','resultado'];
 let history = ['inicio'];
 
 function show(id){
@@ -47,9 +47,24 @@ function updateChrome(id){
 }
 
 function select(el, type){
-    data[type] = el.innerText;
+    // Tomamos solo el texto del label (no del icono SVG si lo hay)
+    const label = el.querySelector('.option-label');
+    data[type] = (label ? label.innerText : el.innerText).trim();
+
     el.parentNode.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
     el.classList.add('selected');
+
+    // Mostramos la descripción asociada (data-desc) en el contenedor del paso
+    const descBox = document.getElementById('desc-' + type);
+    if(descBox){
+        const desc = el.dataset.desc || '';
+        if(desc){
+            descBox.innerText = desc;
+            descBox.classList.add('visible');
+        } else {
+            descBox.classList.remove('visible');
+        }
+    }
 }
 
 function next(targetId, requiredKey){
@@ -81,16 +96,16 @@ function crearPerfume(){
     const n = nombres[Math.floor(Math.random()*nombres.length)];
     const num = Math.floor(Math.random()*20)+1;
 
-    data.inspiracion = document.getElementById("inspiracionInput").value;
     data.perfume = n + " Nº " + num;
 
     document.getElementById("perfume").innerText = data.perfume;
 
     const partes = [];
-    if(data.emocion) partes.push(`sensación ${data.emocion.toLowerCase()}`);
-    if(data.familia) partes.push(`familia ${data.familia.toLowerCase()}`);
-    if(data.acordes) partes.push(`acorde de ${data.acordes.toLowerCase()}`);
-    if(data.intensidad) partes.push(`intensidad ${data.intensidad.toLowerCase()}`);
+    if(data.emocion)      partes.push(`sensación ${data.emocion.toLowerCase()}`);
+    if(data.familia)      partes.push(`familia ${data.familia.toLowerCase()}`);
+    if(data.personalidad) partes.push(`personalidad ${data.personalidad.toLowerCase()}`);
+    if(data.acordes)      partes.push(`acorde de ${data.acordes.toLowerCase()}`);
+    if(data.intensidad)   partes.push(`intensidad ${data.intensidad.toLowerCase()}`);
     document.getElementById("desc").innerText = "Una composición de " + partes.join(", ") + ".";
 
     // Registrar el lead en Google Sheets en cuanto se completa el configurador,
@@ -116,9 +131,9 @@ async function guardarEnSheet(){
         perfume: data.perfume || "",
         emocion: data.emocion || "",
         familia: data.familia || "",
+        personalidad: data.personalidad || "",
         acordes: data.acordes || "",
-        intensidad: data.intensidad || "",
-        inspiracion: data.inspiracion || ""
+        intensidad: data.intensidad || ""
     });
 
     try {
@@ -145,9 +160,9 @@ Teléfono: ${data.telefono}
 Perfume: ${data.perfume}
 Emoción: ${data.emocion || ""}
 Familia: ${data.familia || ""}
+Personalidad: ${data.personalidad || ""}
 Acorde: ${data.acordes || ""}
 Intensidad: ${data.intensidad || ""}
-Inspiración: ${data.inspiracion || ""}
 
 Quedo atento para continuar con el proceso.`;
     window.open("https://wa.me/" + WHATSAPP_NUMERO + "?text=" + encodeURIComponent(mensaje), "_blank");
@@ -158,8 +173,8 @@ function reiniciar(){
     history = ['inicio'];
     document.getElementById('nombre').value = '';
     document.getElementById('telefono').value = '';
-    document.getElementById('inspiracionInput').value = '';
     document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('.option-desc').forEach(d => d.classList.remove('visible'));
     show('inicio');
 }
 

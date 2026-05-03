@@ -1,3 +1,8 @@
+/* ============================================================
+   Felix Chaja Parfums — estilos globales
+   Mobile first. Breakpoints: 380, 600, 900.
+   ============================================================ */
+
 :root{
     --bg:#0B0B0B;
     --bg-elev:#141414;
@@ -19,6 +24,8 @@ html,body{
     font-family:'Inter',Arial,sans-serif;
     -webkit-font-smoothing:antialiased;
     min-height:100vh;
+    /* Evita zoom horizontal por overflow accidental en móvil */
+    overflow-x:hidden;
 }
 
 body{
@@ -28,57 +35,67 @@ body{
         var(--bg);
 }
 
+/* ----- Layout principal ----- */
 .app{
+    width:100%;
     max-width:480px;
     margin:0 auto;
     min-height:100vh;
     display:flex;
     flex-direction:column;
     position:relative;
-    padding:24px 20px 40px;
+    padding:20px 16px 32px;
 }
 
-/* Header / brand strip */
+/* ----- Brand header (3 columnas para que el logo quede SIEMPRE centrado) ----- */
 .brand{
-    display:flex;
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
     align-items:center;
-    justify-content:space-between;
-    padding:8px 4px 20px;
+    padding:8px 0 18px;
     border-bottom:1px solid var(--border);
-    margin-bottom:24px;
+    margin-bottom:20px;
+    column-gap:8px;
 }
 .brand-mark{
+    grid-column:2;
     font-family:'Cormorant Garamond',serif;
     font-weight:500;
-    font-size:18px;
+    font-size:clamp(15px,4.2vw,18px);
     letter-spacing:3px;
     color:var(--gold);
     text-transform:uppercase;
+    text-align:center;
+    white-space:nowrap;
 }
 .brand-back{
+    grid-column:1;
+    justify-self:start;
     background:none;
     border:none;
     color:var(--gold);
     font-size:14px;
     cursor:pointer;
-    padding:6px 10px;
+    padding:6px 8px;
     opacity:0;
     pointer-events:none;
     transition:opacity .25s;
 }
 .brand-back.visible{opacity:1;pointer-events:auto;}
+.brand-spacer{grid-column:3;}
 
-/* Progress dots */
+/* ----- Progress dots ----- */
 .progress{
     display:flex;
+    flex-wrap:wrap;
     gap:6px;
     justify-content:center;
-    margin-bottom:24px;
+    margin-bottom:22px;
     min-height:8px;
 }
 .progress.hidden{visibility:hidden;}
 .dot{
-    width:24px;
+    width:22px;
     height:3px;
     border-radius:2px;
     background:rgba(200,169,106,0.2);
@@ -87,7 +104,7 @@ body{
 .dot.active{background:var(--gold);}
 .dot.done{background:var(--gold-soft);}
 
-/* Screens */
+/* ----- Screens ----- */
 .screen{
     display:none;
     animation:fadeIn .45s ease both;
@@ -101,42 +118,44 @@ body{
     to{opacity:1;transform:translateY(0);}
 }
 
-/* Typography */
+/* ----- Tipografía ----- */
 h1, h2{
     font-family:'Cormorant Garamond',serif;
     font-weight:500;
     letter-spacing:1px;
     margin:0 0 8px;
+    word-wrap:break-word;
 }
 h1{
     color:var(--gold);
-    font-size:clamp(36px,9vw,56px);
+    font-size:clamp(34px,8.5vw,56px);
     line-height:1.05;
 }
 h2{
-    font-size:clamp(24px,6vw,32px);
+    font-size:clamp(22px,5.6vw,32px);
     color:var(--text);
 }
 .eyebrow{
     text-transform:uppercase;
     font-size:11px;
-    letter-spacing:4px;
+    letter-spacing:3px;
     color:var(--muted);
-    margin-bottom:12px;
+    margin-bottom:10px;
 }
 .lead{
     color:var(--muted);
-    font-size:15px;
-    line-height:1.6;
-    margin:0 0 20px;
+    font-size:clamp(13.5px,3.8vw,15px);
+    line-height:1.55;
+    margin:0 0 18px;
 }
 
-/* INICIO splash */
+/* ----- Splash ----- */
 #inicio{
     text-align:center;
     justify-content:center;
     align-items:center;
-    min-height:70vh;
+    min-height:60vh;
+    padding:20px 0;
 }
 #inicio .ornament{
     width:60px;
@@ -145,14 +164,14 @@ h2{
     margin:18px auto;
     opacity:.7;
 }
-#inicio h1{font-size:clamp(44px,11vw,64px);}
+#inicio h1{font-size:clamp(42px,10vw,64px);}
 #inicio .tagline{
     font-style:italic;
     color:var(--gold-soft);
     margin-bottom:8px;
 }
 
-/* Inputs */
+/* ----- Inputs ----- */
 input{
     width:100%;
     padding:14px 16px;
@@ -161,7 +180,7 @@ input{
     border:1px solid var(--border);
     background:var(--bg-elev);
     color:var(--text);
-    font-size:15px;
+    font-size:16px; /* 16px evita zoom automático en iOS */
     font-family:inherit;
     transition:border-color .2s, box-shadow .2s;
 }
@@ -172,69 +191,142 @@ input:focus{
     box-shadow:0 0 0 3px var(--gold-glow);
 }
 
-/* Options grid */
+/* ============================================================
+   Options grid (cards icono + label)
+   - Por defecto 3 columnas (ningún paso queda con cards huérfanas).
+   - Variante .options-5 para Personalidad.
+   ============================================================ */
 .options{
     display:grid;
-    grid-template-columns:1fr;
-    gap:10px;
-    margin:8px 0 24px;
+    grid-template-columns:repeat(3, 1fr);
+    gap:8px;
+    margin:8px 0 12px;
 }
-@media(min-width:380px){
-    .options{grid-template-columns:1fr 1fr;}
+
+/* 5 opciones: en móvil 3+2, en pantallas medianas+ una sola fila */
+.options.options-5{grid-template-columns:repeat(3, 1fr);}
+@media(min-width:560px){
+    .options.options-5{grid-template-columns:repeat(5, 1fr);}
 }
+
 .option{
     border:1px solid var(--border);
     background:var(--bg-elev);
-    padding:18px 14px;
-    border-radius:12px;
+    padding:14px 6px 12px;
+    border-radius:14px;
     cursor:pointer;
     text-align:center;
-    font-size:15px;
-    transition:all .2s ease;
+    transition:transform .2s ease, border-color .2s ease, background .2s ease;
     position:relative;
     user-select:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    color:var(--gold);
+    min-height:96px;
 }
-.option:hover{
-    border-color:var(--gold);
-    transform:translateY(-1px);
+.option-icon{
+    width:32px;
+    height:32px;
+    display:grid;
+    place-items:center;
+    transition:transform .2s ease;
+    flex-shrink:0;
 }
+.option-icon svg{
+    width:100%;
+    height:100%;
+    stroke:currentColor;
+    fill:none;
+    stroke-width:1.4;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+.option-label{
+    font-size:clamp(12px,3.4vw,14px);
+    color:var(--text);
+    font-weight:500;
+    letter-spacing:.2px;
+    line-height:1.2;
+    overflow-wrap:anywhere;
+    hyphens:auto;
+    -webkit-hyphens:auto;
+}
+
+/* Hover sólo en dispositivos con cursor real (evita "stuck hover" en móvil) */
+@media (hover:hover) and (pointer:fine){
+    .option:hover{
+        border-color:var(--gold);
+        transform:translateY(-1px);
+    }
+    .option:hover .option-icon{transform:scale(1.05);}
+}
+
 .option.selected{
     background:linear-gradient(135deg,var(--gold),var(--gold-soft));
     color:#0B0B0B;
     border-color:var(--gold);
-    font-weight:500;
 }
+.option.selected .option-label{color:#0B0B0B;font-weight:600;}
 .option.selected::after{
     content:"✓";
     position:absolute;
     top:6px;
-    right:10px;
-    font-size:12px;
+    right:8px;
+    font-size:11px;
     font-weight:700;
 }
 
-/* Buttons */
+/* ----- Descripción dinámica debajo del grid ----- */
+.option-desc{
+    margin:0 0 18px;
+    padding:0 14px;
+    color:var(--muted);
+    font-size:13.5px;
+    line-height:1.55;
+    text-align:center;
+    background:rgba(200,169,106,0.04);
+    border:1px solid transparent;
+    border-radius:10px;
+    max-height:0;
+    opacity:0;
+    overflow:hidden;
+    transition:max-height .35s ease, opacity .25s ease, padding .25s ease, border-color .25s ease;
+}
+.option-desc.visible{
+    max-height:400px;        /* margen amplio para descripciones largas */
+    opacity:1;
+    padding:12px 14px;
+    border-color:var(--border);
+}
+
+/* ----- Buttons ----- */
 button.primary,
 button.ghost{
     width:100%;
-    padding:14px 18px;
+    padding:14px 16px;
     border-radius:10px;
     border:none;
-    font-size:15px;
+    font-size:14px;
     font-family:inherit;
     font-weight:500;
-    letter-spacing:1px;
+    letter-spacing:.8px;
     text-transform:uppercase;
     cursor:pointer;
-    transition:transform .15s ease, box-shadow .2s ease, opacity .2s;
+    transition:transform .15s ease, box-shadow .2s ease, opacity .2s, border-color .2s;
     margin-top:auto;
+    /* Evita que el texto se rompa en muchas líneas en pantallas estrechas */
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 button.primary{
     background:linear-gradient(135deg,var(--gold),var(--gold-soft));
     color:#0B0B0B;
     box-shadow:0 6px 18px rgba(200,169,106,0.18);
 }
-button.primary:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(200,169,106,0.28);}
 button.primary:active{transform:translateY(0);}
 button.primary:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
 button.ghost{
@@ -243,34 +335,37 @@ button.ghost{
     border:1px solid var(--border);
     margin-top:10px;
 }
-button.ghost:hover{border-color:var(--gold);}
+@media (hover:hover) and (pointer:fine){
+    button.primary:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(200,169,106,0.28);}
+    button.ghost:hover{border-color:var(--gold);}
+}
 
-/* Resultado */
+/* ----- Resultado ----- */
 #resultado{text-align:center;align-items:center;justify-content:center;}
 .bottle{
-    width:90px;
-    height:130px;
-    margin:10px auto 18px;
+    width:80px;
+    height:115px;
+    margin:8px auto 14px;
     position:relative;
 }
 .bottle svg{width:100%;height:100%;}
 #perfume{
-    font-size:clamp(40px,10vw,56px);
+    font-size:clamp(36px,9vw,56px);
     margin:6px 0;
 }
 #desc{
     color:var(--muted);
-    font-size:15px;
+    font-size:14.5px;
     line-height:1.6;
     max-width:320px;
-    margin:0 auto 24px;
+    margin:0 auto 22px;
 }
 .price-tag{
     display:inline-block;
     padding:6px 14px;
     border:1px solid var(--gold);
     border-radius:999px;
-    font-size:12px;
+    font-size:11px;
     letter-spacing:2px;
     text-transform:uppercase;
     color:var(--gold);
@@ -279,7 +374,7 @@ button.ghost:hover{border-color:var(--gold);}
 .result-actions{width:100%;}
 
 .footer{
-    margin-top:28px;
+    margin-top:24px;
     font-size:11px;
     letter-spacing:1px;
     color:var(--muted);
@@ -287,13 +382,33 @@ button.ghost:hover{border-color:var(--gold);}
     text-transform:uppercase;
 }
 
-/* Tablet+ */
-@media(min-width:600px){
-    .app{padding:36px 32px 48px;max-width:560px;}
-    .options{grid-template-columns:1fr 1fr 1fr;}
+/* Móvil compacto  */
+@media(max-width:359px){
+    .app{padding:16px 12px 28px;}
+    .options{gap:6px;}
+    .option{padding:12px 4px 10px;min-height:90px;gap:6px;}
+    .option-icon{width:28px;height:28px;}
+    .brand-mark{letter-spacing:2px;}
+    button.primary,
+    button.ghost{letter-spacing:.4px;font-size:13px;}
 }
+
+/* Tablet pequeña / móvil ancho */
+@media(min-width:480px){
+    .app{padding:28px 24px 40px;max-width:520px;}
+    .option{min-height:110px;padding:18px 10px 14px;gap:10px;}
+    .option-icon{width:36px;height:36px;}
+    .options{gap:10px;}
+}
+
+/* Tablet */
+@media(min-width:600px){
+    .app{padding:32px 28px 44px;max-width:560px;}
+}
+
+/* Escritorio: el contenedor se vuelve "tarjeta" centrada */
 @media(min-width:900px){
-    body{display:flex;align-items:center;}
+    body{display:flex;align-items:center;min-height:100vh;}
     .app{
         max-width:520px;
         min-height:auto;
@@ -303,6 +418,12 @@ button.ghost:hover{border-color:var(--gold);}
         border-radius:18px;
         box-shadow:0 30px 80px rgba(0,0,0,0.5);
     }
+}
+
+/* Pantallas muy bajas (móvil en horizontal) — evita que la splash empuje al usuario */
+@media(max-height:560px){
+    #inicio{min-height:auto;padding:8px 0;}
+    .app{min-height:auto;}
 }
 
 /* Reduced motion */
