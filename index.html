@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Félix Chaja Perfumes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- Brand header -->
+    <div class="brand">
+        <button class="brand-back" id="backBtn" onclick="goBack()">‹ Atrás</button>
+        <div class="brand-mark">Félix Chaja</div>
+        <span style="width:48px"></span>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress" id="progress">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <!-- INICIO -->
+    <div id="inicio" class="screen active">
+        <div class="eyebrow">Parfums &amp; Fragrances</div>
+        <h1>Félix Chaja</h1>
+        <div class="ornament"></div>
+        <p class="tagline">…estrictamente personal</p>
+        <p class="lead">Bienvenido a tu expresión<br>aromática única.</p>
+        <button class="primary" onclick="show('identidad')">Crear mi perfume</button>
+    </div>
+
+    <!-- IDENTIDAD -->
+    <div id="identidad" class="screen">
+        <div class="eyebrow">Paso 1 · Tus datos</div>
+        <h2>Empecemos por ti</h2>
+        <p class="lead">Necesitamos saber cómo contactarte para entregar tu fragancia personalizada.</p>
+        <input id="nombre" placeholder="Nombre completo" autocomplete="name">
+        <input id="telefono" placeholder="Teléfono" inputmode="tel" autocomplete="tel">
+        <button class="primary" onclick="validarIdentidad()">Siguiente</button>
+    </div>
+
+    <!-- EMOCION -->
+    <div id="emocion" class="screen">
+        <div class="eyebrow">Paso 2 · Emoción</div>
+        <h2>¿Cómo quieres sentirte?</h2>
+        <p class="lead">Elige la sensación que quieres proyectar al usar tu perfume.</p>
+        <div class="options">
+            <div class="option" onclick="select(this,'emocion')">Elegante</div>
+            <div class="option" onclick="select(this,'emocion')">Fresco</div>
+            <div class="option" onclick="select(this,'emocion')">Seguro</div>
+        </div>
+        <button class="primary" onclick="next('familia','emocion')">Siguiente</button>
+    </div>
+
+    <!-- FAMILIA -->
+    <div id="familia" class="screen">
+        <div class="eyebrow">Paso 3 · Familia olfativa</div>
+        <h2>Tu familia</h2>
+        <p class="lead">El núcleo aromático sobre el que se construye tu fragancia.</p>
+        <div class="options">
+            <div class="option" onclick="select(this,'familia')">Cítrico</div>
+            <div class="option" onclick="select(this,'familia')">Floral</div>
+            <div class="option" onclick="select(this,'familia')">Amaderado</div>
+        </div>
+        <button class="primary" onclick="next('inspiracion','familia')">Siguiente</button>
+    </div>
+
+    <!-- INSPIRACION -->
+    <div id="inspiracion" class="screen">
+        <div class="eyebrow">Paso 4 · Inspiración</div>
+        <h2>¿Qué te inspira?</h2>
+        <p class="lead">Una referencia, un recuerdo, un lugar… opcional pero ayuda mucho.</p>
+        <input id="inspiracionInput" placeholder="Ej: elegante tipo hotel">
+        <button class="primary" onclick="show('acordes')">Siguiente</button>
+    </div>
+
+    <!-- ACORDES -->
+    <div id="acordes" class="screen">
+        <div class="eyebrow">Paso 5 · Acordes</div>
+        <h2>Acordes principales</h2>
+        <p class="lead">El alma de tu perfume. Elige el matiz que más te llame.</p>
+        <div class="options">
+            <div class="option" onclick="select(this,'acordes')">Vetiver</div>
+            <div class="option" onclick="select(this,'acordes')">Ámbar</div>
+            <div class="option" onclick="select(this,'acordes')">Cuero</div>
+        </div>
+        <button class="primary" onclick="next('intensidad','acordes')">Siguiente</button>
+    </div>
+
+    <!-- INTENSIDAD -->
+    <div id="intensidad" class="screen">
+        <div class="eyebrow">Paso 6 · Intensidad</div>
+        <h2>Intensidad</h2>
+        <p class="lead">¿Qué tan presente quieres que sea tu fragancia?</p>
+        <div class="options">
+            <div class="option" onclick="select(this,'intensidad')">Suave</div>
+            <div class="option" onclick="select(this,'intensidad')">Equilibrado</div>
+            <div class="option" onclick="select(this,'intensidad')">Intenso</div>
+        </div>
+        <button class="primary" onclick="crearPerfume()">Crear perfume</button>
+    </div>
+
+    <!-- RESULTADO -->
+    <div id="resultado" class="screen">
+        <div class="eyebrow">Tu fragancia</div>
+        <div class="bottle" aria-hidden="true">
+            <svg viewBox="0 0 90 130" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#C8A96A" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#C8A96A" stop-opacity="0.05"/>
+                    </linearGradient>
+                </defs>
+                <rect x="33" y="6" width="24" height="14" fill="#C8A96A" rx="2"/>
+                <rect x="38" y="20" width="14" height="8" fill="#a98a4f"/>
+                <rect x="20" y="28" width="50" height="92" rx="8" fill="url(#glass)" stroke="#C8A96A" stroke-width="1.2"/>
+                <rect x="28" y="62" width="34" height="22" rx="2" fill="none" stroke="#C8A96A" stroke-width="0.8" opacity="0.6"/>
+            </svg>
+        </div>
+        <h2 style="margin-bottom:0">Tu perfume es</h2>
+        <h1 id="perfume"></h1>
+        <p id="desc"></p>
+        <div class="price-tag">Presentación 100 ml</div>
+        <div class="result-actions">
+            <button class="primary" onclick="confirmarEnvio()">Reservar por WhatsApp</button>
+            <button class="ghost" onclick="reiniciar()">Empezar de nuevo</button>
+        </div>
+        <div class="footer">
+            Imagen ilustrativa
+        </div>
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
