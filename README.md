@@ -7,7 +7,7 @@ Configurador web de perfumes personalizados. Pequeña aplicación de una sola p�
 Una vez desplegado en GitHub Pages, la aplicación está disponible en:
 
 ```
-https://<tu-usuario>.github.io/Felix-Chaja-Parfums-Fragances/
+[https://andreushin.github.io/Felix-Chaja-Parfums-Fragances-/]
 ```
 
 ## Características
