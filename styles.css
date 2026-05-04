@@ -59,13 +59,35 @@ body{
 }
 .brand-mark{
     grid-column:2;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    line-height:1;
+    gap:0;
+}
+.brand-name{
     font-family:'Cormorant Garamond',serif;
     font-weight:500;
-    font-size:clamp(15px,4.2vw,18px);
-    letter-spacing:3px;
-    color:var(--gold);
-    text-transform:uppercase;
-    text-align:center;
+    font-size:clamp(20px,5.5vw,26px);
+    letter-spacing:0.5px;
+    color:var(--text);
+    white-space:nowrap;
+}
+.brand-divider{
+    display:block;
+    width:26px;
+    height:1px;
+    background:var(--gold);
+    opacity:0.55;
+    margin:4px 0 4px;
+}
+.brand-tagline{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:400;
+    font-size:clamp(10px,2.8vw,13px);
+    letter-spacing:clamp(1.5px, 0.6vw, 3px);
+    color:var(--muted);
     white-space:nowrap;
 }
 .brand-back{
@@ -158,17 +180,33 @@ h2{
     padding:20px 0;
 }
 #inicio .ornament{
-    width:60px;
+    width:80px;
     height:1px;
     background:var(--gold);
-    margin:18px auto;
+    margin:18px auto 22px;
     opacity:.7;
 }
-#inicio h1{font-size:clamp(42px,10vw,64px);}
-#inicio .tagline{
+#inicio h1.splash-tagline{
+    color:var(--text);
+    text-transform:none;
+    font-family:'Cormorant Garamond',serif;
     font-style:italic;
-    color:var(--gold-soft);
-    margin-bottom:8px;
+    font-weight:400;
+    font-size:clamp(38px,9.5vw,68px);
+    letter-spacing:0.5px;
+    line-height:1.1;
+    margin:0 0 4px;
+}
+.splash-lead{
+    max-width:340px;
+    margin:0 auto 28px;
+}
+#inicio .splash-eyebrow{
+    text-transform:uppercase;
+    letter-spacing:5px;
+    font-size:11px;
+    color:var(--gold);
+    margin-bottom:16px;
 }
 
 /* ----- Inputs ----- */
@@ -205,8 +243,17 @@ input:focus{
 
 /* 5 opciones: en móvil 3+2, en pantallas medianas+ una sola fila */
 .options.options-5{grid-template-columns:repeat(3, 1fr);}
-@media(min-width:560px){
+@media(min-width:480px){
     .options.options-5{grid-template-columns:repeat(5, 1fr);}
+}
+
+/* 6 opciones (familias olfativas): 2x3 en móvil, 3x2 en tablet, 6 en línea en desktop */
+.options.options-6{grid-template-columns:repeat(2, 1fr);}
+@media(min-width:480px){
+    .options.options-6{grid-template-columns:repeat(3, 1fr);}
+}
+@media(min-width:680px){
+    .options.options-6{grid-template-columns:repeat(6, 1fr);}
 }
 
 .option{
@@ -382,7 +429,11 @@ button.ghost{
     text-transform:uppercase;
 }
 
-/* Móvil compacto  */
+/* ============================================================
+   Breakpoints
+   ============================================================ */
+
+/* Móvil compacto — más espacio aún para que las cards respiren */
 @media(max-width:359px){
     .app{padding:16px 12px 28px;}
     .options{gap:6px;}
@@ -403,21 +454,58 @@ button.ghost{
 
 /* Tablet */
 @media(min-width:600px){
-    .app{padding:32px 28px 44px;max-width:560px;}
+    .app{padding:32px 28px 44px;max-width:600px;}
 }
 
 /* Escritorio: el contenedor se vuelve "tarjeta" centrada */
 @media(min-width:900px){
-    body{display:flex;align-items:center;min-height:100vh;}
+    body{display:flex;align-items:center;justify-content:center;min-height:100vh;}
     .app{
-        max-width:520px;
+        max-width:680px;
         min-height:auto;
         margin:40px auto;
+        padding:40px 44px 52px;
         background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
         border:1px solid var(--border);
-        border-radius:18px;
+        border-radius:20px;
         box-shadow:0 30px 80px rgba(0,0,0,0.5);
     }
+    /* Botones: anchura limitada y centrados para no verse gigantes */
+    button.primary, button.ghost{
+        max-width:360px;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    .options.options-5{grid-template-columns:repeat(5, 1fr);}
+    .option{min-height:112px;padding:18px 10px 14px;}
+    .option-icon{width:36px;height:36px;}
+    .options{gap:12px;}
+}
+
+/* Escritorio mediano */
+@media(min-width:1100px){
+    .app{
+        max-width:800px;
+        padding:44px 52px 56px;
+    }
+    button.primary, button.ghost{max-width:380px;}
+    .option{min-height:118px;}
+    .option-icon{width:38px;height:38px;}
+    .options{gap:14px;}
+    .brand-name{font-size:26px;}
+    .brand-tagline{font-size:12px;}
+}
+
+/* Escritorio grande */
+@media(min-width:1400px){
+    .app{
+        max-width:900px;
+        padding:48px 64px 64px;
+    }
+    button.primary, button.ghost{max-width:400px;}
+    .option{min-height:124px;gap:12px;}
+    .option-icon{width:40px;height:40px;}
+    .options{gap:16px;}
 }
 
 /* Pantallas muy bajas (móvil en horizontal) — evita que la splash empuje al usuario */

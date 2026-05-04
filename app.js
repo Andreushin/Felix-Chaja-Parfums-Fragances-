@@ -8,7 +8,7 @@ const SHEETS_ENDPOINT = ""; // Ej: "https://script.google.com/macros/s/AKfycbx..
 const WHATSAPP_NUMERO = "524612723409";
 
 let data = {};
-const flow = ['inicio','identidad','emocion','familia','personalidad','acordes','intensidad','resultado'];
+const flow = ['inicio','identidad','genero','emocion','familia','personalidad','acordes','intensidad','resultado'];
 let history = ['inicio'];
 
 function show(id){
@@ -84,7 +84,7 @@ function validarIdentidad(){
     }
     data.nombre = nombre;
     data.telefono = telefono;
-    show("emocion");
+    show("genero");
 }
 
 function crearPerfume(){
@@ -100,13 +100,18 @@ function crearPerfume(){
 
     document.getElementById("perfume").innerText = data.perfume;
 
+    // Construye una descripción legible a partir de las elecciones del usuario
     const partes = [];
+    if(data.genero){
+        const g = data.genero.toLowerCase();
+        partes.push(g === 'unisex' ? 'unisex' : `para ${g}`);
+    }
     if(data.emocion)      partes.push(`sensación ${data.emocion.toLowerCase()}`);
     if(data.familia)      partes.push(`familia ${data.familia.toLowerCase()}`);
     if(data.personalidad) partes.push(`personalidad ${data.personalidad.toLowerCase()}`);
     if(data.acordes)      partes.push(`acorde de ${data.acordes.toLowerCase()}`);
     if(data.intensidad)   partes.push(`intensidad ${data.intensidad.toLowerCase()}`);
-    document.getElementById("desc").innerText = "Una composición de " + partes.join(", ") + ".";
+    document.getElementById("desc").innerText = "Una composición " + partes.join(", ") + ".";
 
     // Registrar el lead en Google Sheets en cuanto se completa el configurador,
     // aunque el cliente no llegue a apretar el botón de WhatsApp.
@@ -129,6 +134,7 @@ async function guardarEnSheet(){
         nombre: data.nombre || "",
         telefono: data.telefono || "",
         perfume: data.perfume || "",
+        genero: data.genero || "",
         emocion: data.emocion || "",
         familia: data.familia || "",
         personalidad: data.personalidad || "",
@@ -158,6 +164,7 @@ function enviarWhats(){
 Nombre: ${data.nombre}
 Teléfono: ${data.telefono}
 Perfume: ${data.perfume}
+Género: ${data.genero || ""}
 Emoción: ${data.emocion || ""}
 Familia: ${data.familia || ""}
 Personalidad: ${data.personalidad || ""}

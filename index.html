@@ -17,7 +17,11 @@
     <!-- Brand header -->
     <div class="brand">
         <button class="brand-back" id="backBtn" onclick="goBack()">‹ Atrás</button>
-        <div class="brand-mark">Félix Chaja</div>
+        <div class="brand-mark">
+            <span class="brand-name">Félix Chaja</span>
+            <span class="brand-divider" aria-hidden="true"></span>
+            <span class="brand-tagline">Parfums &amp; Fragances</span>
+        </div>
         <span class="brand-spacer" aria-hidden="true"></span>
     </div>
 
@@ -29,16 +33,15 @@
         <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot"></div>
+        <div class="dot"></div>
     </div>
 
     <!-- INICIO -->
     <div id="inicio" class="screen active">
-        <div class="eyebrow">Parfums &amp; Fragrances</div>
-        <h1>Félix Chaja</h1>
-        <div class="ornament"></div>
-        <p class="tagline">…estrictamente personal</p>
-        <p class="lead">Bienvenido a tu expresión<br>aromática única.</p>
-        <button class="primary" onclick="show('identidad')">Crear mi perfume</button>
+        <div class="splash-eyebrow">Bienvenido</div>
+        <h1 class="splash-tagline">…estrictamente<br>personal.</h1>
+        <p class="lead splash-lead">Diseña una fragancia única, hecha exclusivamente para ti, en pocos pasos.</p>
+        <button class="primary" onclick="show('identidad')">Comenzar</button>
     </div>
 
     <!-- IDENTIDAD -->
@@ -51,9 +54,41 @@
         <button class="primary" onclick="validarIdentidad()">Siguiente</button>
     </div>
 
+    <!-- GENERO -->
+    <div id="genero" class="screen">
+        <div class="eyebrow">Paso 2 · Género</div>
+        <h2>¿Para quién es?</h2>
+        <p class="lead">Elige el género de la fragancia que quieres diseñar.</p>
+        <div class="options">
+            <div class="option" onclick="select(this,'genero')"
+                 data-desc="Composiciones pensadas para realzar la feminidad: notas florales, frutales, dulces y orientales suaves.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="M12 14v8M9 19h6"/></svg>
+                </div>
+                <div class="option-label">Dama</div>
+            </div>
+            <div class="option" onclick="select(this,'genero')"
+                 data-desc="Una fragancia versátil y atemporal, sin reglas de género. Equilibrio entre frescura y profundidad.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 16.5v5.5M9.5 20h5"/><path d="M15 9L19 5M16 5h3v3"/></svg>
+                </div>
+                <div class="option-label">Unisex</div>
+            </div>
+            <div class="option" onclick="select(this,'genero')"
+                 data-desc="Carácter masculino: notas amaderadas, especiadas o aromáticas, con buena fijación y proyección.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="10" cy="14" r="5"/><path d="M14 10L21 3M16 3h5v5"/></svg>
+                </div>
+                <div class="option-label">Caballero</div>
+            </div>
+        </div>
+        <div class="option-desc" id="desc-genero"></div>
+        <button class="primary" onclick="next('emocion','genero')">Siguiente</button>
+    </div>
+
     <!-- EMOCION -->
     <div id="emocion" class="screen">
-        <div class="eyebrow">Paso 2 · Emoción</div>
+        <div class="eyebrow">Paso 3 · Emoción</div>
         <h2>¿Cómo quieres sentirte?</h2>
         <p class="lead">Elige la sensación que quieres proyectar al usar tu perfume.</p>
         <div class="options">
@@ -85,10 +120,10 @@
 
     <!-- FAMILIA -->
     <div id="familia" class="screen">
-        <div class="eyebrow">Paso 3 · Familia olfativa</div>
+        <div class="eyebrow">Paso 4 · Familia olfativa</div>
         <h2>Selecciona tu base</h2>
         <p class="lead">El núcleo aromático sobre el que se construye tu fragancia.</p>
-        <div class="options">
+        <div class="options options-6">
             <div class="option" onclick="select(this,'familia')"
                  data-desc="Aromas jóvenes, alegres y frescos. Composiciones basadas en frutas como naranja, limón, mandarina, toronja y bergamota.">
                 <div class="option-icon">
@@ -110,6 +145,27 @@
                 </div>
                 <div class="option-label">Amaderado</div>
             </div>
+            <div class="option" onclick="select(this,'familia')"
+                 data-desc="Notas dulces, especiadas y resinosas: vainilla, incienso, ámbar y especias cálidas. Sensual y profundo, ideal para noches.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2v3M12 19v3M4 12h3M17 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3.5"/></svg>
+                </div>
+                <div class="option-label">Oriental</div>
+            </div>
+            <div class="option" onclick="select(this,'familia')"
+                 data-desc="Hierbas aromáticas como lavanda, romero, salvia y menta. Frescura herbal, limpia y serena.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 22V8"/><path d="M12 14c-3 0-6-2-6-5 3 0 6 2 6 5z"/><path d="M12 11c3 0 6-2 6-5-3 0-6 2-6 5z"/></svg>
+                </div>
+                <div class="option-label">Aromático</div>
+            </div>
+            <div class="option" onclick="select(this,'familia')"
+                 data-desc="Notas marinas y minerales que evocan la brisa, el agua y la frescura del mar. Ligeras, modernas y limpias.">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24"><path d="M2 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2 14c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2 20c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg>
+                </div>
+                <div class="option-label">Acuático</div>
+            </div>
         </div>
         <div class="option-desc" id="desc-familia"></div>
         <button class="primary" onclick="next('personalidad','familia')">Siguiente</button>
@@ -117,7 +173,7 @@
 
     <!-- PERSONALIDAD -->
     <div id="personalidad" class="screen">
-        <div class="eyebrow">Paso 4 · Personalidad</div>
+        <div class="eyebrow">Paso 5 · Personalidad</div>
         <h2>Selecciona tu personalidad</h2>
         <p class="lead">Elige la actitud que mejor describe tu estilo de vida.</p>
         <div class="options options-5">
@@ -163,7 +219,7 @@
 
     <!-- ACORDES -->
     <div id="acordes" class="screen">
-        <div class="eyebrow">Paso 5 · Acordes</div>
+        <div class="eyebrow">Paso 6 · Acordes</div>
         <h2>Acordes principales</h2>
         <p class="lead">El alma de tu perfume. Elige el matiz que más te llame.</p>
         <div class="options">
@@ -195,7 +251,7 @@
 
     <!-- INTENSIDAD -->
     <div id="intensidad" class="screen">
-        <div class="eyebrow">Paso 6 · Intensidad</div>
+        <div class="eyebrow">Paso 7 · Intensidad</div>
         <h2>Intensidad</h2>
         <p class="lead">¿Qué tan presente quieres que sea tu fragancia?</p>
         <div class="options">
