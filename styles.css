@@ -69,7 +69,7 @@ body{
 .brand-name{
     font-family:'Cormorant Garamond',serif;
     font-weight:500;
-    font-size:clamp(20px,5.5vw,26px);
+    font-size:clamp(26px,7vw,34px); 
     letter-spacing:0.5px;
     color:var(--text);
     white-space:nowrap;
@@ -85,7 +85,7 @@ body{
 .brand-tagline{
     font-family:'Cormorant Garamond',serif;
     font-weight:400;
-    font-size:clamp(10px,2.8vw,13px);
+    font-size:clamp(13px,3.5vw,16px); 
     letter-spacing:clamp(1.5px, 0.6vw, 3px);
     color:var(--muted);
     white-space:nowrap;
@@ -204,7 +204,7 @@ h2{
 #inicio .splash-eyebrow{
     text-transform:uppercase;
     letter-spacing:5px;
-    font-size:11px;
+    font-size: 16px; 
     color:var(--gold);
     margin-bottom:16px;
 }
