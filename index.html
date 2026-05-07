@@ -413,29 +413,8 @@
             <span class="cfg-eyebrow">Paso 3 · Emoción</span>
             <h2 class="cfg-h2" id="emocion-heading">¿Cómo quieres sentirte?</h2>
             <p class="cfg-lead">Elige la sensación que quieres proyectar al usar tu perfume.</p>
-            <div class="options" role="radiogroup" aria-label="Emoción de la fragancia">
-                <div class="option" onclick="select(this,'emocion')" role="radio" aria-checked="false" tabindex="0"
-                     data-desc="Una presencia sofisticada y refinada. Para momentos donde quieres dejar huella sin alzar la voz.">
-                    <div class="option-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M6 3l4 6h4l4-6M2 9h20"/></svg>
-                    </div>
-                    <div class="option-label">Elegante</div>
-                </div>
-                <div class="option" onclick="select(this,'emocion')" role="radio" aria-checked="false" tabindex="0"
-                     data-desc="Energía radiante y renovadora. La sensación de estar en tu mejor versión: vivo, presente y en plena forma en cada momento.">
-                    <div class="option-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
-                    </div>
-                    <div class="option-label">Vitalidad</div>
-                </div>
-                <div class="option" onclick="select(this,'emocion')" role="radio" aria-checked="false" tabindex="0"
-                     data-desc="Carácter firme y reconocible. Una fragancia que te respalda en cada decisión.">
-                    <div class="option-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    </div>
-                    <div class="option-label">Seguro</div>
-                </div>
-            </div>
+            <!-- Grid vacío: JS lo puebla con etiquetas W o M según género -->
+            <div id="emociones-grid" class="options" role="radiogroup" aria-label="Emoción de la fragancia"></div>
             <div class="option-desc" id="desc-emocion" aria-live="polite"></div>
             <button class="btn-primary" onclick="next('familia','emocion')">Siguiente</button>
         </div>

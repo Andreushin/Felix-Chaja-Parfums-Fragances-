@@ -22,17 +22,37 @@ const WHATSAPP_NUMERO = "524612723409";
  * Seguro             → Fondo oriental especiado
  */
 const EMOCION_FAMILIA_MAP = {
+    // ── Dama (W) ────────────────────────────────────────────────
     'Vitalidad': {
         familia_sugerida: 'Cítrico',
-        notas_salida:     'bergamota y limón',
-        notas_corazon:    'lavanda y neroli',
+        notas_salida:     'bergamota y limón siciliano',
+        notas_corazon:    'neroli y lavanda',
         notas_fondo:      'almizcle blanco y cedro'
     },
     'Elegante': {
         familia_sugerida: 'Amaderado',
-        notas_salida:     'aldehídos florales y iris',
-        notas_corazon:    'rosa y jazmín',
+        notas_salida:     'aldehídos florales e iris',
+        notas_corazon:    'rosa centifolia y jazmín',
         notas_fondo:      'sándalo, musgo de roble y ámbar'
+    },
+    'Segura': {
+        familia_sugerida: 'Oriental',
+        notas_salida:     'especias cálidas y cardamomo',
+        notas_corazon:    'oud y ámbar gris',
+        notas_fondo:      'vetiver, cuero y resinas'
+    },
+    // ── Caballero (M) — aliases con el mismo motor olfativo ─────
+    'Energía': {
+        familia_sugerida: 'Cítrico',
+        notas_salida:     'bergamota, yuzu y pomelo rosa',
+        notas_corazon:    'lavanda y musgo marino',
+        notas_fondo:      'cedro Atlas y almizcle blanco'
+    },
+    'Distinción': {
+        familia_sugerida: 'Amaderado',
+        notas_salida:     'iris y especias secas',
+        notas_corazon:    'geranio bourbon y vetiver',
+        notas_fondo:      'sándalo, cedro y musgo de roble'
     },
     'Seguro': {
         familia_sugerida: 'Oriental',
@@ -196,7 +216,8 @@ function show(id) {
     if (history[history.length - 1] !== id) history.push(id);
     updateChrome(id);
 
-    // Poblar personalidades con las opciones correctas según género
+    // Poblar emociones y personalidades con las etiquetas correctas según género
+    if (id === 'emocion')      renderEmociones();
     if (id === 'personalidad') renderPersonalidades();
 
     // Scroll interno del overlay al inicio del paso
@@ -246,6 +267,82 @@ function next(targetId, requiredKey) {
         return;
     }
     show(targetId);
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   BIFURCACIÓN DE EMOCIÓN POR GÉNERO
+   W → Vitalidad · Elegante · Segura
+   M → Energía   · Distinción · Seguro
+   ════════════════════════════════════════════════════════════════ */
+
+const EMOCIONES_W = [
+    {
+        id: 'Vitalidad',
+        desc: 'Energía radiante y renovadora. La sensación de estar en tu mejor versión: viva, presente y luminosa en cada momento.',
+        svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>'
+    },
+    {
+        id: 'Elegante',
+        desc: 'Una presencia sofisticada y refinada. Para quien quiere dejar huella sin alzar la voz — la distinción como estado natural.',
+        svg: '<svg viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M6 3l4 6h4l4-6M2 9h20"/></svg>'
+    },
+    {
+        id: 'Segura',
+        desc: 'Carácter firme y reconocible. Una fragancia que te respalda en cada decisión y proyecta convicción antes de hablar.',
+        svg: '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>'
+    }
+];
+
+const EMOCIONES_M = [
+    {
+        id: 'Energía',
+        desc: 'Impulso constante. Composiciones cítricas y marinas que acompañan a quien no necesita pausa para avanzar.',
+        svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>'
+    },
+    {
+        id: 'Distinción',
+        desc: 'Amaderado limpio y preciso. La fragancia del hombre que no necesita volumen para ser escuchado ni explicación para ser reconocido.',
+        svg: '<svg viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M6 3l4 6h4l4-6M2 9h20"/></svg>'
+    },
+    {
+        id: 'Seguro',
+        desc: 'Carácter firme y reconocible. Una fragancia que te respalda en cada decisión y proyecta convicción sin esfuerzo.',
+        svg: '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>'
+    }
+];
+
+function renderEmociones() {
+    const generoKey = (data.genero || '').toLowerCase();
+    const isM = generoKey === 'caballero';
+
+    const lista = isM ? EMOCIONES_M : EMOCIONES_W;
+
+    // Actualizar encabezado y texto guía
+    const heading = document.getElementById('emocion-heading');
+    const lead    = document.querySelector('#emocion .cfg-lead');
+    if (heading) {
+        heading.innerText = isM
+            ? '¿Qué quieres proyectar?'
+            : '¿Cómo quieres sentirte?';
+    }
+    if (lead) {
+        lead.innerText = isM
+            ? 'El estado que definirá la arquitectura de tu perfume.'
+            : 'Elige la sensación que quieres proyectar al usar tu perfume.';
+    }
+
+    data.emocion = null;
+    const grid = document.getElementById('emociones-grid');
+    if (!grid) return;
+
+    grid.innerHTML = lista.map(e => `
+        <div class="option" onclick="select(this,'emocion')" role="radio" aria-checked="false" tabindex="0"
+             data-desc="${e.desc}">
+            <div class="option-icon" aria-hidden="true">${e.svg}</div>
+            <div class="option-label">${e.id}</div>
+        </div>
+    `).join('');
 }
 
 
@@ -379,9 +476,12 @@ function _generarNota(d, prefijo, familiaEfectiva, concentracion) {
     };
 
     const CUERPOS = {
-        'Vitalidad': 'Construida sobre una arquitectura viva y energizante — la frescura del primer impulso de un día que comienza con fuerza.',
-        'Elegante':  'Diseñada con la precisión de lo que no necesita explicación. Cada nota ocupa su lugar con una certeza que no admite dudas.',
-        'Seguro':    'Una fórmula de confianza absoluta. La seguridad tiene aroma — y este es el tuyo.'
+        'Vitalidad':  'Construida sobre una arquitectura viva y luminosa — la frescura del primer impulso de un día que comienza con fuerza.',
+        'Elegante':   'Diseñada con la precisión de lo que no necesita explicación. Cada nota ocupa su lugar con una certeza que no admite dudas.',
+        'Segura':     'Una fórmula de confianza absoluta. La seguridad tiene aroma — y este es el tuyo.',
+        'Energía':    'Cítricas intensas y acordes marinos que reflejan el impulso de quien no detiene su paso. Una arquitectura en movimiento.',
+        'Distinción': 'Amaderado limpio y preciso. Construida para el hombre que no necesita volumen para ser escuchado.',
+        'Seguro':     'Una fórmula de confianza absoluta. La seguridad tiene aroma — y este es el tuyo.'
     };
 
     const ACORDE_NOTAS = {
