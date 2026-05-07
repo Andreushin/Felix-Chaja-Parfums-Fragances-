@@ -959,6 +959,7 @@ h1, h2, h3, h4 {
 }
 .options.options-5 { grid-template-columns: repeat(3, 1fr); }
 .options.options-6 { grid-template-columns: repeat(2, 1fr); }
+.options.options-8 { grid-template-columns: repeat(2, 1fr); }
 
 .option {
     position: relative;
@@ -1126,6 +1127,49 @@ h1, h2, h3, h4 {
     margin: 0 auto 24px;
 }
 
+/* ── Sello premium badge ─────────────────────────────────── */
+.perfume-sello-badge {
+    font-size: 10px;
+    letter-spacing: 2.8px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: .75;
+    text-align: center;
+    margin: -4px auto 20px;
+}
+
+/* ── Pirámide olfativa ───────────────────────────────────── */
+.perfume-piramide {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto 22px;
+    border-top: 1px solid rgba(200,169,106,.2);
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+.pir-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12.5px;
+}
+.pir-label {
+    min-width: 58px;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: .7;
+    padding-top: 2px;
+    flex-shrink: 0;
+}
+.pir-notas {
+    color: var(--muted);
+    line-height: 1.5;
+}
+
 .price-tag {
     display: inline-block;
     padding: 6px 16px;
@@ -1176,6 +1220,7 @@ h1, h2, h3, h4 {
     .option-icon { width: 32px; height: 32px; }
     .options { gap: 11px; }
     .options.options-5 { grid-template-columns: repeat(5, 1fr); }
+    .options.options-8 { grid-template-columns: repeat(4, 1fr); }
     .l-section { padding: 96px 40px; }
     .hero-actions { max-width: 340px; }
 }
@@ -1218,6 +1263,7 @@ h1, h2, h3, h4 {
     .options { gap: 12px; }
     .options.options-5 { grid-template-columns: repeat(5, 1fr); }
     .options.options-6 { grid-template-columns: repeat(3, 1fr); }
+    .options.options-8 { grid-template-columns: repeat(4, 1fr); }
 }
 
 @media (min-width: 1200px) {
