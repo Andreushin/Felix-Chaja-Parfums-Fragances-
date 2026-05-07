@@ -48,7 +48,7 @@ const EMOCION_FAMILIA_MAP = {
         notas_corazon:    'lavanda y musgo marino',
         notas_fondo:      'cedro Atlas y almizcle blanco'
     },
-    'Distinción': {
+    'Elegante': {
         familia_sugerida: 'Amaderado',
         notas_salida:     'iris y especias secas',
         notas_corazon:    'geranio bourbon y vetiver',
